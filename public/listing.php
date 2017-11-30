@@ -59,24 +59,19 @@ li.ui-state-default:last-child{
         <div class="col-md-6">
             <div class="todolist not-done">
              <h1>Todos</h1>
-                <input type="text" class="form-control add-todo" placeholder="Add todo">
-                    <button id="checkAll" class="btn btn-success">Mark all as done</button>
-                    
+             	<form action="create_todo.php" method="post">
+	                <input type="text" name="todo" class="form-control add-todo" placeholder="Add todo">
+	                <input type="submit" class="btn btn-success" value="Submit">
                     <hr>
                     <ul id="sortable" class="list-unstyled">
                     <?php
-                    $taskList = [
-                    				"Take out the trash",
-                    				"Buy bread",
-                    				"Teach penguins to fly",
-                    				"Go to market",
-                    			];
+                    $data = file_get_contents ('todos.json');
+                    $taskList = json_decode($data, true);
 
-                    foreach ($taskList as $i => $task) { ?>
+                    foreach ($taskList as $task) { ?>
         				<li class="ui-state-default">
                         <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="" /><?php echo($task); ?></label>
+                            <label><input type="checkbox" value="" /><?php echo($task); ?></label>
                         </div>
                         </li>
     				<?php } ?>
